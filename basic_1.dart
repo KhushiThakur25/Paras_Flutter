@@ -33,32 +33,56 @@ class _MyHomeScreenState extends State<MyHomeScreen> {
     });
   }
 
+  void _decrement() {
+    setState(() {
+      if (_count > 0) {
+        _count--;
+      }
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Counter App"),
+          title: const Center(
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [Text("Counter App"), Icon(Icons.calculate_outlined)],
+        ),
+      )),
+      body: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            const Text(
+              "Hello, this is my counter App..",
+              style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+              textAlign: TextAlign.center,
+            ),
+            const SizedBox(
+              height: 10,
+            ),
+            const SizedBox(
+              height: 10,
+            ),
+            Text(' The value of count is $_count', textAlign: TextAlign.center)
+          ],
+        ),
       ),
-      body: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
+      floatingActionButton: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceAround,
         children: [
-          const Text(
-            "Hello, this is my counter App..",
-            style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
-            textAlign: TextAlign.center,
-          ),
-          const SizedBox(
-            height: 10,
-          ),
           FloatingActionButton(
             onPressed: _increment,
             backgroundColor: Colors.blue,
             child: const Icon(Icons.add),
           ),
-          const SizedBox(
-            height: 10,
+          FloatingActionButton(
+            onPressed: _decrement,
+            backgroundColor: Colors.blue,
+            child: const Icon(Icons.remove),
           ),
-          Text(' The value of count is $_count', textAlign: TextAlign.center)
         ],
       ),
     );
