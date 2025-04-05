@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:numerology_app/screens/prediction_dialog.dart';
+import 'package:numerology_app/utils/numerology_calculator.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -32,7 +34,17 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   void _predictNumerology(){
-    
+    if(_selectedDate == null){
+      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+        content: Text("please select a date of birth.."),
+        backgroundColor: Color.fromARGB(255, 202, 87, 87),
+      ));
+      return;
+    }
+    showDialog(context: context, builder: (context)=>PredictionDialog(
+      rootNumber: NumerologyCalculator.calculateRootNumber(_selectedDate!.day),
+      destinyNumber: NumerologyCalculator.calculateDestinyNumber(_selectedDate!)
+    ));
   }
 
   @override
@@ -118,7 +130,7 @@ class _HomeScreenState extends State<HomeScreen> {
             ),
             const Spacer(),
             ElevatedButton(
-              onPressed: onPressed,
+              onPressed: _predictNumerology,
               style: ElevatedButton.styleFrom(
                 minimumSize: Size(100, 50),
                 backgroundColor: const Color.fromARGB(255, 31, 0, 54),
